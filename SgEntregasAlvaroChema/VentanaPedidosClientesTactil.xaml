@@ -1,0 +1,32 @@
+﻿<Window x:Class="SgEntregasAlvaroChema.VentanaPedidosClientesTactil"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SgEntregasAlvaroChema"
+        xmlns:views="clr-namespace:SgEntregasAlvaroChema.MyViews"
+        xmlns:vm="clr-namespace:SgEntregasAlvaroChema.viewModel"
+        xmlns:component="clr-namespace:SgEntregasAlvaroChema.UsersCards"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        mc:Ignorable="d"
+        Title="Clientes" Height="450" Width="800"  WindowStartupLocation="CenterScreen"  Closing="Window_Closing" GotFocus="Window_GotFocus">
+    
+    
+       
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
+        <StackPanel x:Name="sp_card_list" Height="450" Width="800" >
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0.1" Color="Yellow" />
+                        <GradientStop Offset="1" Color="LimeGreen" />
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <views:UserControlPedidosStackPanelView/>
+            
+        </StackPanel>
+    </ScrollViewer>
+    
+</Window>

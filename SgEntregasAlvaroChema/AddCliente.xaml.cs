@@ -1,17 +1,5 @@
 ﻿using SgEntregasAlvaroChema.viewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SgEntregasAlvaroChema
 {
@@ -21,11 +9,13 @@ namespace SgEntregasAlvaroChema
     public partial class AddCliente : Window
     {
         CollectionViewModel coleccionVM;
-        public AddCliente(CollectionViewModel colectionVM)
+        GestionClientes ventanaAnterior;
+        public AddCliente(CollectionViewModel colectionVM, GestionClientes ventanaAnterior)
         {
             InitializeComponent();
             this.coleccionVM = colectionVM;
             cargarProvincias();
+            this.ventanaAnterior = ventanaAnterior;
         }
 
         private void cargarProvincias()
@@ -57,6 +47,8 @@ namespace SgEntregasAlvaroChema
             //también añadiremos la referencia al otro objeto
             cliente.provincias = coleccionVM.ListaProvincias[cmb_provincia.SelectedIndex];
 
+            bool correcto = true;
+
             if (this.txt_dni.Text.Trim() == "" || this.txt_nombre.Text.Trim() == "" || this.txt_apellidos.Text.Trim() == ""
                 || this.txt_email.Text.Trim() == "" || this.txt_localidad.Text.Trim() == "")
             {
@@ -64,14 +56,34 @@ namespace SgEntregasAlvaroChema
             }
             else
             {
-                //Lo guardamos en la lista de la tabla de clientes de la base de datos
-                coleccionVM.objBD.clientes.Add(cliente);
-                //Lo guardamos en la lista observable
-                coleccionVM.ListaClientes.Add(cliente);
-                //Cerramos la ventana de añadir.
-                MessageBox.Show("Cliente añadido correctamente.", "Cliente añadido");
-                this.Close();
+                foreach (var cli in coleccionVM.ListaClientes)
+                {
+                    if (cli.dni == txt_dni.Text)
+                    {
+                        correcto = false;
+                    }
+                }
+                if (correcto)
+                {
+                    //Lo guardamos en la lista de la tabla de clientes de la base de datos
+                    coleccionVM.objBD.clientes.Add(cliente);
+                    //Lo guardamos en la lista observable
+                    coleccionVM.ListaClientes.Add(cliente);
+                    //Cerramos la ventana de añadir.
+                    MessageBox.Show("Cliente añadido correctamente.", "Cliente añadido");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("DNI ya existente.", "Error añadido", MessageBoxButton.OK);
+
+                }
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ventanaAnterior.Visibility = Visibility.Visible;
         }
     }
 }

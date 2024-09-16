@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SgEntregasAlvaroChema.viewModel;
 
 namespace SgEntregasAlvaroChema
 {
@@ -19,9 +20,29 @@ namespace SgEntregasAlvaroChema
     /// </summary>
     public partial class VentanaTactil : Window
     {
-        public VentanaTactil()
+        CollectionViewModel cvm;
+        private MainWindow ventanaAnterior;
+
+        public VentanaTactil(MainWindow ventana)
         {
             InitializeComponent();
+            cvm = (CollectionViewModel)this.Resources["CollectionVmVentanaTactil"];
+            this.ventanaAnterior = ventana;
+        }
+
+     
+
+        private void lista_clientes_ventana_tactil_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+            int pos = lista_clientes_ventana_tactil.SelectedIndex;
+            VentanaPedidosClientesTactil windPed = new VentanaPedidosClientesTactil(cvm.ListaClientes[pos],cvm,this);
+            this.Visibility = Visibility.Hidden;
+            windPed.Show();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            this.ventanaAnterior.Visibility = Visibility.Visible;
         }
     }
 }

@@ -1,11 +1,15 @@
-﻿<Window x:Class="SgEntregasAlvaroChema.AddCliente"
+﻿<Window x:Class="SgEntregasAlvaroChema.ModificarCliente"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SgEntregasAlvaroChema"
+        xmlns:converters ="clr-namespace:SgEntregasAlvaroChema.Converters"
         mc:Ignorable="d"
-        Title="Añadir Cliente" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
+        Title="Modificar Cliente" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
+    <Window.Resources>
+        <converters:ProvinciaConverter x:Key="conversorProvincia"/>
+    </Window.Resources>
     <StackPanel>
         <StackPanel.Background>
             <LinearGradientBrush StartPoint="0 0" EndPoint="0 1">
@@ -26,13 +30,14 @@
                 <TextBlock Text="Provincia: " Margin="5" />
             </StackPanel>
             <StackPanel>
-                <TextBox x:Name="txt_dni" Width="200" Margin="4" />
-                <TextBox x:Name="txt_nombre" Width="200" Margin="4"/>
-                <TextBox x:Name="txt_apellidos" Width="200" Margin="4"/>
-                <TextBox x:Name="txt_email" Width="200" Margin="4"/>
-                <TextBox x:Name="txt_domicilio" Width="200" Margin="4"/>
-                <TextBox x:Name="txt_localidad" Width="200" Margin="4"/>
-                <ComboBox x:Name="cmb_provincia" Width="200" Margin="4"/>
+                <TextBox x:Name="txt_dni" Width="200" Margin="4" Text="{Binding dni}" IsReadOnly="True" />
+                <TextBox x:Name="txt_nombre" Width="200" Margin="4" Text="{Binding nombre}"/>
+                <TextBox x:Name="txt_apellidos" Width="200" Margin="4" Text="{Binding apellidos}"/>
+                <TextBox x:Name="txt_email" Width="200" Margin="4" Text="{Binding email}"/>
+                <TextBox x:Name="txt_domicilio" Width="200" Margin="4" Text="{Binding domicilio}"/>
+                <TextBox x:Name="txt_localidad" Width="200" Margin="4" Text="{Binding localidad}"/>
+                <ComboBox x:Name="cmb_provincia" Width="200" Margin="4" SelectedIndex="{Binding provincia, Converter={StaticResource conversorProvincia} }"/>
+               
             </StackPanel>
         </StackPanel>
         <StackPanel Orientation="Horizontal">

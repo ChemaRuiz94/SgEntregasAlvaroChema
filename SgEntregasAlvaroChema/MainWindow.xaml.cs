@@ -35,14 +35,17 @@ namespace SgEntregasAlvaroChema
         }
         private void btn_tactil_Click(object sender, RoutedEventArgs e)
         {
-            VentanaTactil venTactil = new VentanaTactil();
-            venTactil.ShowDialog();
-
+            VentanaTactil venTactil = new VentanaTactil(this);
+            this.Visibility = Visibility.Hidden;
+            venTactil.Show();
         }
         private void btn_ordenador_Click(object sender, RoutedEventArgs e)
         {
-           VentanaOrdenador ventanaOrdenador = new VentanaOrdenador();
-            ventanaOrdenador.ShowDialog();
+           VentanaOrdenador ventanaOrdenador = new VentanaOrdenador(this);
+            this.Visibility = Visibility.Hidden;
+            ventanaOrdenador.Show();
         }
+
+        
     }
 }
